@@ -1,0 +1,3051 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alya's Sanctuary 🦢</title>
+<link href="https://fonts.googleapis.com/css2?family=Courier+Prime&family=Dancing+Script:wght@500&family=Crimson+Text&display=swap" rel="stylesheet">
+
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: linear-gradient(135deg, #fff0f5 0%, #ffe4e9 100%);
+    background-attachment: fixed;
+    font-family: 'Courier Prime', monospace;
+    overflow-x: hidden;
+  }
+
+  :root { 
+    --coquette-pink: #db7093; 
+    --soft-cream: #fff9fb; 
+    --vintage-brown: #5c4033;
+  }
+
+  /* --- FLOATING HEARTS ANIMATION --- */
+  @keyframes floatHeart {
+    0% { transform: translateY(0) scale(0); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(-100vh) scale(1); opacity: 0; }
+  }
+
+  .floating-heart {
+    position: fixed;
+    font-size: 20px;
+    pointer-events: none;
+    z-index: 9999;
+    animation: floatHeart 4s ease-in-out forwards;
+  }
+
+  /* --- SPARKLE EFFECT --- */
+  @keyframes sparkle {
+    0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
+    50% { opacity: 1; transform: scale(1) rotate(180deg); }
+  }
+
+  .sparkle {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    background: radial-gradient(circle, #fff 0%, var(--coquette-pink) 100%);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: sparkle 1s ease-in-out;
+    z-index: 999;
+  }
+
+  /* --- RIBBON DECORATION --- */
+  @keyframes ribbonWave {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-5px) rotate(2deg); }
+  }
+
+  .ribbon-decoration {
+    position: fixed;
+    top: 60px;
+    width: 100%;
+    height: 40px;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 10px,
+      rgba(219, 112, 147, 0.1) 10px,
+      rgba(219, 112, 147, 0.1) 20px
+    );
+    border-top: 2px solid rgba(219, 112, 147, 0.3);
+    border-bottom: 2px solid rgba(219, 112, 147, 0.3);
+    animation: ribbonWave 3s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 999;
+  }
+
+  /* --- RUNNING TEXT --- */
+  .running-text {
+    background: var(--coquette-pink);
+    color: white;
+    padding: 10px;
+    font-size: 13px;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 10px rgba(219, 112, 147, 0.3);
+  }
+
+  /* --- MUSIC CONTROL --- */
+  .music-control {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+  }
+
+  .music-btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--coquette-pink);
+    border: 3px solid white;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(219, 112, 147, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
+
+  .music-btn:hover {
+    transform: scale(1.1) rotate(10deg);
+    box-shadow: 0 10px 25px rgba(219, 112, 147, 0.5);
+  }
+
+  .music-btn.playing {
+    animation: pulse 1.5s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+
+  /* --- INVITATION OVERLAY --- */
+  #invitation-overlay { 
+    position: fixed; 
+    top: 0; left: 0; 
+    width: 100%; 
+    height: 100%; 
+    background: linear-gradient(135deg, #fff0f5 0%, #ffe4e9 100%);
+    z-index: 9999; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+  }
+
+  .invitation-card {
+    background: white;
+    padding: 40px;
+    border-radius: 30px;
+    border: 3px solid var(--coquette-pink);
+    box-shadow: 0 15px 40px rgba(219, 112, 147, 0.2);
+    text-align: center;
+    max-width: 400px;
+    animation: fadeInScale 0.5s ease-out;
+  }
+
+  @keyframes fadeInScale {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  .btn-enter { 
+    background: var(--coquette-pink);
+    color: white; 
+    border: none; 
+    padding: 15px 35px; 
+    border-radius: 25px; 
+    cursor: pointer; 
+    font-family: 'Courier Prime'; 
+    font-size: 16px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+  }
+
+  .btn-enter:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(219, 112, 147, 0.3);
+  }
+
+  /* --- MAIN CONTAINER --- */
+  .alya-app-container { 
+    width: 92%; 
+    max-width: 550px; 
+    margin: 20px auto 100px auto; 
+    background: rgba(255, 249, 251, 0.95);
+    border: 3px solid var(--coquette-pink);
+    border-radius: 30px; 
+    padding: 20px; 
+    box-shadow: 0 15px 35px rgba(219, 112, 147, 0.2);
+    animation: slideIn 0.5s ease-out;
+  }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* --- DECORATIVE HEADER --- */
+  .header-decoration {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 15px;
+    font-size: 24px;
+    animation: bounce 2s ease-in-out infinite;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+
+  /* --- CLOCK --- */
+  .clock-container { 
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    gap: 15px;
+    margin: 15px 0; 
+  }
+
+  .analog-clock { 
+    width: 80px; 
+    height: 80px; 
+    border: 4px solid var(--coquette-pink);
+    border-radius: 50%; 
+    position: relative; 
+    background: white;
+    box-shadow: 0 5px 15px rgba(219, 112, 147, 0.2);
+  }
+
+  .clock-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 8px;
+    height: 8px;
+    background: var(--coquette-pink);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+  }
+
+  .hand { 
+    position: absolute; 
+    bottom: 50%; 
+    left: 50%; 
+    transform-origin: bottom center;
+    background: var(--vintage-brown);
+    border-radius: 10px;
+  }
+
+  .hour { width: 4px; height: 20px; } 
+  .min { width: 3px; height: 28px; } 
+  .sec { width: 2px; height: 32px; background: var(--coquette-pink); }
+
+  .digital-time {
+    font-family: 'Crimson Text', serif;
+    font-size: 18px;
+    color: var(--coquette-pink);
+    font-weight: bold;
+  }
+
+  /* --- GAME BOX --- */
+  .game-box { 
+    background: white;
+    border-radius: 20px; 
+    padding: 18px; 
+    margin: 15px 0; 
+    border: 2px solid #ffdae0;
+    box-shadow: 0 5px 15px rgba(219, 112, 147, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .game-box:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(219, 112, 147, 0.2);
+  }
+
+  .game-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 22px;
+    color: var(--coquette-pink);
+    margin-bottom: 12px;
+    text-align: center;
+  }
+
+  .game-content {
+    padding: 10px;
+  }
+
+  /* --- BUTTONS --- */
+  .btn-pink {
+    background: var(--coquette-pink);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: 'Courier Prime';
+    font-size: 14px;
+    font-weight: bold;
+    width: 100%;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+  }
+
+  .btn-pink:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(219, 112, 147, 0.3);
+  }
+
+  .btn-pink:active {
+    transform: translateY(0);
+  }
+
+  .btn-small {
+    padding: 8px 15px;
+    font-size: 12px;
+    width: auto;
+    display: inline-block;
+  }
+
+  /* --- INPUT FIELDS --- */
+  input[type="text"], textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #ffdae0;
+    border-radius: 15px;
+    font-family: 'Courier Prime';
+    font-size: 13px;
+    background: white;
+    margin: 8px 0;
+    transition: all 0.3s ease;
+  }
+
+  input[type="text"]:focus, textarea:focus {
+    outline: none;
+    border-color: var(--coquette-pink);
+    box-shadow: 0 0 10px rgba(219, 112, 147, 0.2);
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+
+  /* --- STATS SECTION --- */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 15px 0;
+  }
+
+  .stat-card {
+    background: white;
+    border: 2px solid #ffdae0;
+    border-radius: 15px;
+    padding: 15px 10px;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+
+  .stat-card:hover {
+    transform: scale(1.05);
+    border-color: var(--coquette-pink);
+  }
+
+  .stat-emoji {
+    font-size: 28px;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .stat-value {
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--coquette-pink);
+    font-family: 'Crimson Text', serif;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    color: #8b5a6d;
+    margin-top: 4px;
+  }
+
+  /* --- QUIZ STYLES --- */
+  .quiz-option {
+    background: white;
+    border: 2px solid #ffdae0;
+    padding: 12px;
+    margin: 8px 0;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s;
+  }
+
+  .quiz-option:hover {
+    background: #fff0f5;
+    border-color: var(--coquette-pink);
+    transform: translateX(5px);
+  }
+
+  .quiz-option.correct {
+    background: #d4edda;
+    border-color: #28a745;
+  }
+
+  .quiz-option.wrong {
+    background: #f8d7da;
+    border-color: #dc3545;
+  }
+
+  /* --- MEMORY GAME --- */
+  .memory-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin: 15px 0;
+  }
+
+  .memory-card {
+    aspect-ratio: 1;
+    background: var(--coquette-pink);
+    border: 2px solid white;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    cursor: pointer;
+    transition: all 0.3s;
+    user-select: none;
+    color: white;
+  }
+
+  .memory-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(219,112,147,0.3);
+  }
+
+  .memory-card.flipped {
+    background: white;
+    border-color: var(--coquette-pink);
+    color: var(--coquette-pink);
+  }
+
+  .memory-card.matched {
+    background: #90c695;
+    border-color: #6fa876;
+    cursor: default;
+    pointer-events: none;
+  }
+
+  /* --- CONFESSION WALL --- */
+  .confession-card {
+    background: white;
+    border: 2px solid #ffdae0;
+    border-radius: 15px;
+    padding: 15px;
+    margin: 10px 0;
+    animation: slideIn 0.3s ease-out;
+  }
+
+  .confession-header {
+    font-size: 11px;
+    color: #8b5a6d;
+    margin-bottom: 8px;
+  }
+
+  .confession-text {
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--vintage-brown);
+  }
+
+  /* --- MOOD TRACKER --- */
+  .mood-selector {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 15px 0;
+    flex-wrap: wrap;
+  }
+
+  .mood-btn {
+    font-size: 36px;
+    cursor: pointer;
+    transition: all 0.3s;
+    padding: 12px;
+    border-radius: 50%;
+    background: white;
+    border: 2px solid #ffdae0;
+  }
+
+  .mood-btn:hover {
+    transform: scale(1.2);
+    background: rgba(219, 112, 147, 0.1);
+    border-color: var(--coquette-pink);
+  }
+
+  .mood-history {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 15px;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+
+  .mood-entry {
+    background: white;
+    border: 2px solid #ffdae0;
+    border-radius: 10px;
+    padding: 6px 10px;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex-shrink: 0;
+  }
+
+  /* --- POMODORO TIMER --- */
+  .timer-display {
+    font-family: 'Crimson Text', serif;
+    font-size: 48px;
+    text-align: center;
+    color: var(--coquette-pink);
+    margin: 20px 0;
+    font-weight: bold;
+  }
+
+  .timer-controls {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+  }
+
+  /* --- COLOR PALETTE GENERATOR --- */
+  .color-palette {
+    display: flex;
+    gap: 10px;
+    margin: 15px 0;
+  }
+
+  .color-swatch {
+    flex: 1;
+    height: 80px;
+    border-radius: 10px;
+    border: 2px solid white;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .color-swatch:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  }
+
+  .color-code {
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255,255,255,0.9);
+    padding: 3px 8px;
+    border-radius: 5px;
+    font-size: 10px;
+    font-weight: bold;
+  }
+
+  /* --- CALENDAR --- */
+  .calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+
+  .calendar-nav {
+    background: none;
+    border: none;
+    color: var(--coquette-pink);
+    font-size: 20px;
+    cursor: pointer;
+    padding: 5px 10px;
+    transition: all 0.3s;
+  }
+
+  .calendar-nav:hover {
+    transform: scale(1.2);
+  }
+
+  .calendar-month {
+    font-family: 'Dancing Script', cursive;
+    font-size: 20px;
+    color: var(--coquette-pink);
+  }
+
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+  }
+
+  .calendar-day {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    background: white;
+    border: 1px solid #ffdae0;
+  }
+
+  .calendar-day:hover {
+    background: #fff0f5;
+    transform: scale(1.1);
+  }
+
+  .calendar-day.today {
+    background: var(--coquette-pink);
+    color: white;
+    font-weight: bold;
+  }
+
+  .calendar-day.has-event {
+    background: #ffe4e9;
+  }
+
+  .event-dot {
+    position: absolute;
+    bottom: 3px;
+    width: 4px;
+    height: 4px;
+    background: var(--coquette-pink);
+    border-radius: 50%;
+  }
+
+  .calendar-day.other-month {
+    opacity: 0.3;
+    cursor: default;
+  }
+
+  /* --- HABIT TRACKER --- */
+  .habit-list {
+    margin: 15px 0;
+  }
+
+  .habit-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    background: white;
+    border: 2px solid #ffdae0;
+    border-radius: 12px;
+    margin: 8px 0;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .habit-item:hover {
+    background: #fff0f5;
+    transform: translateX(5px);
+  }
+
+  .habit-check {
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--coquette-pink);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  .habit-check.completed {
+    background: var(--coquette-pink);
+    color: white;
+  }
+
+  .self-care-check {
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--coquette-pink);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  .self-care-check.completed {
+    background: var(--coquette-pink);
+    color: white;
+  }
+
+  .habit-text {
+    flex: 1;
+    font-size: 14px;
+  }
+
+  /* --- GRATITUDE JOURNAL --- */
+  .gratitude-list {
+    max-height: 300px;
+    overflow-y: auto;
+    margin: 15px 0;
+  }
+
+  .gratitude-item {
+    background: white;
+    border: 2px solid #ffdae0;
+    border-radius: 12px;
+    padding: 12px;
+    margin: 8px 0;
+    font-size: 13px;
+    line-height: 1.6;
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    animation: slideIn 0.3s ease-out;
+  }
+
+  .gratitude-delete {
+    background: none;
+    border: none;
+    color: #999;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 0 5px;
+    transition: all 0.2s;
+  }
+
+  .gratitude-delete:hover {
+    color: #dc3545;
+    transform: scale(1.2);
+  }
+
+  /* --- QUOTE BOX --- */
+  .quote-box {
+    background: linear-gradient(135deg, #fff0f5 0%, #ffe4e9 100%);
+    border: 2px solid var(--coquette-pink);
+    border-radius: 15px;
+    padding: 20px;
+    margin: 15px 0;
+    text-align: center;
+    position: relative;
+  }
+
+  .quote-text {
+    font-family: 'Crimson Text', serif;
+    font-size: 16px;
+    font-style: italic;
+    line-height: 1.6;
+    color: var(--vintage-brown);
+    margin-bottom: 10px;
+  }
+
+  .quote-author {
+    font-size: 12px;
+    color: #8b5a6d;
+  }
+
+  /* --- MINI POPUP --- */
+  .mini-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background: white;
+    border: 3px solid var(--coquette-pink);
+    border-radius: 20px;
+    padding: 20px 30px;
+    font-size: 16px;
+    text-align: center;
+    z-index: 10000;
+    box-shadow: 0 10px 30px rgba(219, 112, 147, 0.3);
+    animation: popupAppear 0.3s ease-out forwards;
+  }
+
+  @keyframes popupAppear {
+    to { transform: translate(-50%, -50%) scale(1); }
+  }
+
+  /* --- AFFIRMATION CARDS --- */
+  .affirmation-card {
+    background: linear-gradient(135deg, var(--coquette-pink), #ff69b4);
+    color: white;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    margin: 15px 0;
+    box-shadow: 0 10px 25px rgba(219, 112, 147, 0.3);
+    animation: fadeIn 0.5s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .affirmation-text {
+    font-family: 'Dancing Script', cursive;
+    font-size: 24px;
+    line-height: 1.5;
+    margin-bottom: 15px;
+  }
+
+  /* --- BREATHING EXERCISE --- */
+  .breathing-circle {
+    width: 150px;
+    height: 150px;
+    margin: 20px auto;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--coquette-pink), #ff69b4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    box-shadow: 0 10px 30px rgba(219, 112, 147, 0.4);
+  }
+
+  .breathing-circle.inhale {
+    animation: breatheIn 4s ease-in-out;
+  }
+
+  .breathing-circle.hold {
+    animation: breatheHold 7s ease-in-out;
+  }
+
+  .breathing-circle.exhale {
+    animation: breatheOut 8s ease-in-out;
+  }
+
+  @keyframes breatheIn {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.5); }
+  }
+
+  @keyframes breatheHold {
+    0%, 100% { transform: scale(1.5); }
+  }
+
+  @keyframes breatheOut {
+    0% { transform: scale(1.5); }
+    100% { transform: scale(1); }
+  }
+
+  /* --- WATER TRACKER --- */
+  .water-glasses {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin: 15px 0;
+  }
+
+  .water-glass {
+    aspect-ratio: 1;
+    background: white;
+    border: 3px solid #add8e6;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+  }
+
+  .water-glass:hover {
+    transform: scale(1.1);
+  }
+
+  .water-glass.filled {
+    background: linear-gradient(to top, #87ceeb 0%, #add8e6 100%);
+    border-color: #4fc3f7;
+  }
+
+  /* --- SCROLLBAR STYLING --- */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #fff0f5;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--coquette-pink);
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #c55a7a;
+  }
+
+  .messages-list {
+    max-height: 300px;
+    overflow-y: auto;
+    margin-top: 15px;
+  }
+
+  .message-item {
+    background: white;
+    border: 2px solid #ffdae0;
+    border-radius: 12px;
+    padding: 12px;
+    margin: 8px 0;
+    font-size: 13px;
+    line-height: 1.6;
+    position: relative;
+    animation: slideIn 0.3s ease-out;
+  }
+
+  .message-header {
+    font-size: 10px;
+    color: #8b5a6d;
+    margin-bottom: 8px;
+  }
+
+  .message-text {
+    color: var(--vintage-brown);
+  }
+
+  .message-count {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: var(--coquette-pink);
+    color: white;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 14px;
+    box-shadow: 0 3px 10px rgba(219, 112, 147, 0.4);
+  }
+
+  /* --- RESPONSIVE --- */
+  @media (max-width: 600px) {
+    .stats-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+    
+    .memory-grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+
+    .color-palette {
+      flex-direction: column;
+    }
+
+    .color-swatch {
+      height: 60px;
+    }
+  }
+  
+  /* === NAVIGATION BUTTONS === */
+  .nav-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(219,112,147,0.4) !important;
+  }
+
+  /* === PAGE SYSTEM === */
+  .page-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.9);
+    z-index: 9999;
+    overflow-y: auto;
+    padding: 20px;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .page-overlay.active {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .page-content {
+    background: linear-gradient(135deg, #fff0f5 0%, #ffe4e9 100%);
+    border-radius: 30px;
+    padding: 30px;
+    max-width: 900px;
+    width: 100%;
+    margin: 40px auto;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(219,112,147,0.3);
+  }
+
+  .page-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: var(--coquette-pink);
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 24px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(219,112,147,0.3);
+  }
+
+  .page-close:hover {
+    transform: rotate(90deg) scale(1.1);
+    box-shadow: 0 6px 15px rgba(219,112,147,0.4);
+  }
+
+  .page-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 36px;
+    color: var(--coquette-pink);
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  /* === GALLERY GRID === */
+  .playlist-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 20px;
+    margin: 20px 0;
+  }
+
+  .playlist-item {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(219,112,147,0.2);
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .playlist-item:hover {
+    transform: translateY(-8px) scale(1.05);
+    box-shadow: 0 10px 25px rgba(219,112,147,0.3);
+  }
+
+  .playlist-item img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+  }
+
+  .playlist-label {
+    padding: 12px;
+    text-align: center;
+    font-size: 13px;
+    color: var(--vintage-brown);
+    font-weight: bold;
+  }
+
+  /* === SERIES GRID === */
+  .series-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    margin: 20px 0;
+  }
+
+  .series-item {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(92,64,51,0.2);
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .series-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgba(92,64,51,0.3);
+  }
+
+  .series-item img {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+  }
+
+  .series-label {
+    padding: 12px;
+    text-align: center;
+    font-size: 13px;
+    color: var(--vintage-brown);
+    font-weight: bold;
+  }
+
+  /* === PERFORMANCE OPTIMIZATION === */
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  img {
+    image-rendering: -webkit-optimize-contrast;
+  }
+
+  .game-box, .playlist-item, .series-item {
+    will-change: transform;
+  }
+
+  /* === VOLUME SLIDER === */
+  #volumeSlider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: var(--coquette-pink);
+    cursor: pointer;
+  }
+
+  #volumeSlider::-moz-range-thumb {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: var(--coquette-pink);
+    cursor: pointer;
+    border: none;
+  }
+
+</style>
+</head>
+
+<body>
+<!-- Running Text -->
+<div class="running-text">
+  ✨ Welcome to Alya's Sanctuary • Your personal coquette space for wellness & creativity 🦢
+</div>
+
+<!-- Ribbon Decoration -->
+<div class="ribbon-decoration"></div>
+
+<!-- Advanced Music Player with Minimize -->
+<div class="music-control">
+  <!-- Mini Player (when minimized) -->
+  <button id="miniPlayer" class="music-btn" onclick="togglePlayerSize()" style="width: 45px; height: 45px; border-radius: 50%; background: var(--coquette-pink); border: 2px solid white; color: white; cursor: pointer; font-size: 20px; transition: all 0.3s; box-shadow: 0 6px 20px rgba(219,112,147,0.4); display: flex; align-items: center; justify-content: center;">
+    🎵
+  </button>
+  
+  <!-- Full Player (when expanded) -->
+  <div id="fullPlayer" style="background: white; padding: 12px; border-radius: 15px; box-shadow: 0 8px 25px rgba(219,112,147,0.3); min-width: 180px; display: none;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+      <div style="font-size: 10px; color: var(--coquette-pink); font-weight: bold; flex: 1;" id="musicTitle">
+        🎵 Music
+      </div>
+      <button onclick="togglePlayerSize()" style="background: none; border: none; color: var(--coquette-pink); cursor: pointer; font-size: 16px; padding: 0; line-height: 1;">×</button>
+    </div>
+    <div style="display: flex; gap: 6px; justify-content: center; margin-bottom: 8px;">
+      <button class="music-btn" onclick="prevTrack()" style="width: 32px; height: 32px; border-radius: 50%; background: var(--coquette-pink); border: none; color: white; cursor: pointer; font-size: 12px; transition: all 0.3s;">⏮️</button>
+      <button class="music-btn" id="musicToggle" onclick="toggleMusic()" style="width: 38px; height: 38px; border-radius: 50%; background: var(--coquette-pink); border: 2px solid white; color: white; cursor: pointer; font-size: 16px; transition: all 0.3s;">▶️</button>
+      <button class="music-btn" onclick="nextTrack()" style="width: 32px; height: 32px; border-radius: 50%; background: var(--coquette-pink); border: none; color: white; cursor: pointer; font-size: 12px; transition: all 0.3s;">⏭️</button>
+    </div>
+    <div style="display: flex; align-items: center; gap: 6px;">
+      <span style="font-size: 12px;">🔊</span>
+      <input type="range" id="volumeSlider" min="0" max="100" value="50" oninput="changeVolume()" style="width: 100%; height: 4px; border-radius: 5px; background: #ffdae0; outline: none; -webkit-appearance: none;">
+    </div>
+  </div>
+</div>
+
+<!-- Hidden Audio with Multiple Tracks -->
+<audio id="bgMusic" loop>
+  <source id="audioSource" src="https://cdn.pixabay.com/audio/2022/03/10/audio_4deafc2ae2.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Invitation Overlay -->
+<div id="invitation-overlay">
+  <div class="invitation-card">
+    <h1 style="font-family: 'Dancing Script', cursive; color: var(--coquette-pink); font-size: 32px; margin-bottom: 15px;">
+      🦢 Alya's Sanctuary
+    </h1>
+    <p style="margin: 15px 0; color: var(--vintage-brown); line-height: 1.6;">
+      Welcome to your personal coquette wellness space. A place for mindfulness, creativity, and gentle self-care.
+    </p>
+    <button class="btn-enter" onclick="enterSanctuary()">Enter Sanctuary ✨</button>
+  </div>
+</div>
+
+<!-- Main Container -->
+<div class="alya-app-container" style="display: none;" id="mainContainer">
+  
+  <!-- Header Decoration -->
+  <div class="header-decoration">
+    <span>🦢</span>
+    <span>🎀</span>
+    <span>🌸</span>
+    <span>🦢</span>
+  </div>
+
+  <!-- Welcome Message -->
+  <h1 style="font-family: 'Dancing Script', cursive; text-align: center; color: var(--coquette-pink); font-size: 28px; margin-bottom: 10px;">
+    Alya's Sanctuary
+  </h1>
+  <p style="text-align: center; color: var(--vintage-brown); margin-bottom: 15px; font-size: 13px;">
+    Your personal wellness & creativity space 🌙
+  </p>
+
+  <!-- Navigation Buttons -->
+  <div style="display: flex; gap: 10px; justify-content: center; margin-bottom: 20px; flex-wrap: wrap;">
+    <button class="nav-button" onclick="showPlaylistPage()" style="background: var(--coquette-pink); color: white; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-family: 'Courier Prime'; font-size: 13px; box-shadow: 0 4px 10px rgba(219,112,147,0.3); transition: all 0.3s ease;">
+      🎵 Taylor Swift Playlist
+    </button>
+    <button class="nav-button" onclick="showStrangerPage()" style="background: var(--vintage-brown); color: white; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-family: 'Courier Prime'; font-size: 13px; box-shadow: 0 4px 10px rgba(92,64,51,0.3); transition: all 0.3s ease;">
+      📺 Stranger Things Series
+    </button>
+  </div>
+
+  <!-- Clock -->
+  <div class="clock-container">
+    <div class="analog-clock">
+      <div class="hand hour" id="hourHand"></div>
+      <div class="hand min" id="minHand"></div>
+      <div class="hand sec" id="secHand"></div>
+      <div class="clock-center"></div>
+    </div>
+    <div class="digital-time" id="digitalClock">00:00:00</div>
+  </div>
+
+  <!-- Stats Grid -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <span class="stat-emoji">📅</span>
+      <div class="stat-value" id="daysActive">0</div>
+      <div class="stat-label">Days Active</div>
+    </div>
+    <div class="stat-card">
+      <span class="stat-emoji">💖</span>
+      <div class="stat-value" id="visitCount">0</div>
+      <div class="stat-label">Visits</div>
+    </div>
+    <div class="stat-card">
+      <span class="stat-emoji">✨</span>
+      <div class="stat-value" id="totalActions">0</div>
+      <div class="stat-label">Actions</div>
+    </div>
+  </div>
+
+  <!-- Daily Affirmation -->
+  <div class="game-box">
+    <div class="game-title">✨ Daily Affirmation</div>
+    <div class="game-content">
+      <div class="affirmation-card" id="affirmationCard">
+        <div class="affirmation-text" id="affirmationText">
+          You are worthy of all the good things coming your way
+        </div>
+      </div>
+      <button class="btn-pink" onclick="generateAffirmation()">New Affirmation 🌟</button>
+    </div>
+  </div>
+
+  <!-- Breathing Exercise -->
+  <div class="game-box">
+    <div class="game-title">🫧 Breathing Exercise</div>
+    <div class="game-content">
+      <div class="breathing-circle" id="breathingCircle">Ready</div>
+      <div style="text-align: center; margin: 15px 0; color: var(--vintage-brown);" id="breathingInstruction">
+        Click start to begin your breathing exercise
+      </div>
+      <button class="btn-pink" onclick="startBreathing()" id="breathingBtn">Start Exercise 🌸</button>
+    </div>
+  </div>
+
+  <!-- Water Tracker -->
+  <div class="game-box">
+    <div class="game-title">💧 Water Tracker</div>
+    <div class="game-content">
+      <div style="text-align: center; margin-bottom: 10px; color: var(--vintage-brown);">
+        Daily Goal: 8 glasses
+      </div>
+      <div class="water-glasses" id="waterGlasses"></div>
+      <div style="text-align: center; margin-top: 10px; color: var(--coquette-pink); font-weight: bold;" id="waterProgress">
+        0/8 glasses
+      </div>
+      <button class="btn-pink btn-small" onclick="resetWater()" style="margin-top: 10px;">Reset Today</button>
+    </div>
+  </div>
+
+  <!-- Pomodoro Timer -->
+  <div class="game-box">
+    <div class="game-title">🍅 Focus Timer</div>
+    <div class="game-content">
+      <div class="timer-display" id="pomodoroDisplay">25:00</div>
+      <div class="timer-controls">
+        <button class="btn-pink btn-small" onclick="startPomodoro()">Start</button>
+        <button class="btn-pink btn-small" onclick="pausePomodoro()">Pause</button>
+        <button class="btn-pink btn-small" onclick="resetPomodoro()">Reset</button>
+      </div>
+      <div style="text-align: center; margin-top: 10px; font-size: 12px; color: #8b5a6d;">
+        25 min focus • 5 min break
+      </div>
+    </div>
+  </div>
+
+  <!-- Mood Tracker -->
+  <div class="game-box">
+    <div class="game-title">🌈 Mood Tracker</div>
+    <div class="game-content">
+      <div style="text-align: center; margin-bottom: 10px; font-size: 13px; color: var(--vintage-brown);">
+        How are you feeling today?
+      </div>
+      <div class="mood-selector">
+        <span class="mood-btn" onclick="logMood('😊', 'Happy')" title="Happy">😊</span>
+        <span class="mood-btn" onclick="logMood('😌', 'Calm')" title="Calm">😌</span>
+        <span class="mood-btn" onclick="logMood('😔', 'Sad')" title="Sad">😔</span>
+        <span class="mood-btn" onclick="logMood('😰', 'Anxious')" title="Anxious">😰</span>
+      </div>
+      <div class="mood-history" id="moodHistory"></div>
+    </div>
+  </div>
+
+  <!-- Habit Tracker -->
+  <div class="game-box">
+    <div class="game-title">✅ Daily Habits</div>
+    <div class="game-content">
+      <div class="habit-list">
+        <div class="habit-item" onclick="toggleHabit(0)">
+          <div class="habit-check" data-index="0"></div>
+          <div class="habit-text">💧 Drink 8 glasses of water</div>
+        </div>
+        <div class="habit-item" onclick="toggleHabit(1)">
+          <div class="habit-check" data-index="1"></div>
+          <div class="habit-text">🧘‍♀️ 10 min meditation</div>
+        </div>
+        <div class="habit-item" onclick="toggleHabit(2)">
+          <div class="habit-check" data-index="2"></div>
+          <div class="habit-text">📖 Read for 30 minutes</div>
+        </div>
+        <div class="habit-item" onclick="toggleHabit(3)">
+          <div class="habit-check" data-index="3"></div>
+          <div class="habit-text">🏃‍♀️ Exercise or walk</div>
+        </div>
+        <div class="habit-item" onclick="toggleHabit(4)">
+          <div class="habit-check" data-index="4"></div>
+          <div class="habit-text">🌙 Sleep before midnight</div>
+        </div>
+      </div>
+      <div id="habitProgress" style="text-align: center; margin-top: 15px; color: var(--coquette-pink); font-weight: bold;">
+        0/5 habits completed today 🌙
+      </div>
+    </div>
+  </div>
+
+  <!-- Gratitude Journal -->
+  <div class="game-box">
+    <div class="game-title">🙏 Gratitude Journal</div>
+    <div class="game-content">
+      <textarea id="gratitudeInput" placeholder="What are you grateful for today? 💕"></textarea>
+      <button class="btn-pink" onclick="addGratitude()">Add Gratitude ✨</button>
+      <div class="gratitude-list" id="gratitudeList"></div>
+    </div>
+  </div>
+
+  <!-- Quote of the Day -->
+  <div class="game-box">
+    <div class="game-title">💭 Quote of the Day</div>
+    <div class="game-content">
+      <div class="quote-box">
+        <div class="quote-text" id="quoteText">
+          "Believe in your infinite potential. Your only limitations are those you set upon yourself."
+        </div>
+        <div class="quote-author" id="quoteAuthor">— Roy T. Bennett</div>
+      </div>
+      <button class="btn-pink" onclick="generateQuote()">New Quote ✨</button>
+    </div>
+  </div>
+
+  <!-- Interactive Calendar -->
+  <div class="game-box">
+    <div class="game-title">📅 My Calendar</div>
+    <div class="game-content">
+      <div class="calendar-header">
+        <button class="calendar-nav" onclick="changeMonth(-1)">◀</button>
+        <div class="calendar-month" id="calendarMonth">January 2026</div>
+        <button class="calendar-nav" onclick="changeMonth(1)">▶</button>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; margin-bottom: 10px; text-align: center; font-size: 11px; color: #8b5a6d; font-weight: bold;">
+        <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+      </div>
+      <div class="calendar-grid" id="calendarDays"></div>
+      <div style="text-align: center; margin-top: 10px; font-size: 12px; color: #8b5a6d;">
+        Click on dates to mark special days ✨
+      </div>
+    </div>
+  </div>
+
+  <!-- Self-Care Checklist -->
+  <div class="game-box">
+    <div class="game-title">💆‍♀️ Self-Care Checklist</div>
+    <div class="game-content">
+      <div style="text-align: center; margin-bottom: 10px; font-size: 13px; color: var(--vintage-brown);">
+        Take care of yourself today
+      </div>
+      <div class="habit-list">
+        <div class="habit-item" onclick="toggleSelfCare(0)">
+          <div class="habit-check self-care-check" data-index="0"></div>
+          <div class="habit-text">🧖‍♀️ Skincare routine</div>
+        </div>
+        <div class="habit-item" onclick="toggleSelfCare(1)">
+          <div class="habit-check self-care-check" data-index="1"></div>
+          <div class="habit-text">💅 Paint your nails</div>
+        </div>
+        <div class="habit-item" onclick="toggleSelfCare(2)">
+          <div class="habit-check self-care-check" data-index="2"></div>
+          <div class="habit-text">🛁 Take a relaxing bath</div>
+        </div>
+        <div class="habit-item" onclick="toggleSelfCare(3)">
+          <div class="habit-check self-care-check" data-index="3"></div>
+          <div class="habit-text">💇‍♀️ Hair care treatment</div>
+        </div>
+        <div class="habit-item" onclick="toggleSelfCare(4)">
+          <div class="habit-check self-care-check" data-index="4"></div>
+          <div class="habit-text">🌸 Use your favorite perfume</div>
+        </div>
+      </div>
+      <div id="selfCareProgress" style="text-align: center; margin-top: 15px; color: var(--coquette-pink); font-weight: bold;">
+        0/5 self-care activities 💖
+      </div>
+    </div>
+  </div>
+
+  <!-- Daily Journal -->
+  <div class="game-box">
+    <div class="game-title">📔 Daily Journal</div>
+    <div class="game-content">
+      <div style="margin-bottom: 10px;">
+        <label style="font-size: 12px; color: var(--vintage-brown); display: block; margin-bottom: 5px;">
+          How was your day?
+        </label>
+        <textarea id="journalInput" placeholder="Write about your day, feelings, or thoughts... 🌙" style="min-height: 100px;"></textarea>
+      </div>
+      <button class="btn-pink" onclick="saveJournalEntry()">Save Entry ✨</button>
+      <div class="messages-list" id="journalList"></div>
+    </div>
+  </div>
+
+  <!-- Self-Love Quiz -->
+  <div class="game-box">
+    <div class="game-title">💖 Self-Love Quiz</div>
+    <div class="game-content">
+      <div id="quizQuestion" style="margin-bottom: 15px; font-size: 15px; color: var(--vintage-brown); text-align: center; line-height: 1.5;">
+        Loading question...
+      </div>
+      <div id="quizOptions"></div>
+      <div id="quizScore" style="margin-top: 15px; text-align: center; color: var(--coquette-pink); font-weight: bold;">
+        Score: 0/0
+      </div>
+    </div>
+  </div>
+
+  <!-- Anonymous Confession Wall -->
+  <div class="game-box">
+    <div class="game-title">💌 Confession Wall</div>
+    <div class="game-content">
+      <textarea id="confessionInput" placeholder="Share your thoughts anonymously... 🤍"></textarea>
+      <button class="btn-pink" onclick="addConfession()">Post Anonymously 💕</button>
+      <div id="confessionWall" style="margin-top: 20px; max-height: 400px; overflow-y: auto;"></div>
+    </div>
+  </div>
+
+  <!-- New Interactive Games Section -->
+  <div style="text-align: center; margin: 30px 0;">
+    <h2 style="font-family: 'Dancing Script', cursive; color: var(--coquette-pink); font-size: 26px; margin-bottom: 10px;">
+      🎮 Interactive Games Zone
+    </h2>
+    <p style="color: var(--vintage-brown); font-size: 13px;">
+      Take a break with these fun & relaxing games! ✨
+    </p>
+  </div>
+
+  <!-- Memory Matching Game -->
+  <div class="game-box">
+    <div class="game-title">🎴 Memory Match</div>
+    <div class="game-content">
+      <div style="text-align: center; margin-bottom: 15px;">
+        <div style="font-size: 13px; color: var(--vintage-brown); margin-bottom: 10px;">
+          Find matching pairs of emojis!
+        </div>
+        <div style="display: flex; gap: 20px; justify-content: center; font-size: 12px; color: #8b5a6d;">
+          <span>Moves: <b id="memoryMoves">0</b></span>
+          <span>Matches: <b id="memoryMatches">0/8</b></span>
+        </div>
+      </div>
+      <div id="memoryGrid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; max-width: 350px; margin: 0 auto;">
+        <!-- Cards will be generated by JS -->
+      </div>
+      <button class="btn-pink" onclick="initMemoryGame()" style="margin-top: 15px;">New Game 🎴</button>
+    </div>
+  </div>
+
+  <!-- Whack-a-Mole Style Game -->
+  <div class="game-box">
+    <div class="game-title">💕 Catch the Hearts</div>
+    <div class="game-content">
+      <div style="text-align: center; margin-bottom: 15px;">
+        <div style="font-size: 13px; color: var(--vintage-brown); margin-bottom: 10px;">
+          Click the hearts before they disappear!
+        </div>
+        <div style="font-size: 18px; color: var(--coquette-pink); font-weight: bold;">
+          Score: <span id="whackScore">0</span> | Time: <span id="whackTime">30</span>s
+        </div>
+      </div>
+      <div id="whackGrid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; max-width: 260px; margin: 0 auto;">
+        <!-- Holes will be generated -->
+      </div>
+      <button class="btn-pink" onclick="startWhackGame()" style="margin-top: 15px;" id="whackBtn">Start Game 💕</button>
+    </div>
+  </div>
+
+  <!-- Sliding Puzzle Game -->
+  <div class="game-box">
+    <div class="game-title">🧩 Number Puzzle</div>
+    <div class="game-content">
+      <div style="text-align: center; margin-bottom: 15px;">
+        <div style="font-size: 13px; color: var(--vintage-brown); margin-bottom: 10px;">
+          Arrange numbers from 1 to 8!
+        </div>
+        <div style="font-size: 12px; color: #8b5a6d;">
+          Moves: <b id="puzzleMoves">0</b>
+        </div>
+      </div>
+      <div id="puzzleGrid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; max-width: 280px; margin: 0 auto; background: var(--coquette-pink); padding: 5px; border-radius: 15px;">
+        <!-- Tiles will be generated -->
+      </div>
+      <button class="btn-pink" onclick="initPuzzleGame()" style="margin-top: 15px;">Shuffle 🔀</button>
+    </div>
+  </div>
+
+  <!-- Color Harmony Game -->
+  <div class="game-box">
+    <div class="game-title">🎨 Color Harmony</div>
+    <div class="game-content">
+      <div style="text-align: center; margin-bottom: 15px;">
+        <div style="font-size: 13px; color: var(--vintage-brown); margin-bottom: 10px;">
+          Match the color shown!
+        </div>
+        <div style="font-size: 18px; color: var(--coquette-pink); font-weight: bold;">
+          Score: <span id="colorScore">0</span>
+        </div>
+      </div>
+      <div id="colorDisplay" style="width: 180px; height: 180px; margin: 15px auto; border-radius: 20px; box-shadow: 0 8px 20px rgba(0,0,0,0.2); transition: all 0.3s;"></div>
+      <div id="colorOptions" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; max-width: 280px; margin: 0 auto;">
+        <!-- Color options will be generated -->
+      </div>
+      <button class="btn-pink" onclick="initColorGame()" style="margin-top: 15px;">New Challenge 🎨</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // ========================================
+  // GLOBAL VARIABLES
+  // ========================================
+  let gameState = {
+    visitCount: 0,
+    totalActions: 0,
+    confessions: [],
+    moods: [],
+    calendarEvents: {},
+    habits: {},
+    gratitudes: [],
+    waterGlasses: 0,
+    pomodoroTime: 1500,
+    pomodoroRunning: false,
+    pomodoroInterval: null,
+    breathingActive: false,
+    selfCare: {},
+    journal: [],
+  };
+
+  // ========================================
+  // MUSIC CONTROL
+  // ========================================
+  // ========================================
+  // MUSIC PLAYER WITH MULTIPLE TRACKS
+  // ========================================
+  let currentTrack = 0;
+  const musicTracks = [
+    { title: '🎵 Lofi Chill Music', url: 'https://cdn.pixabay.com/audio/2022/03/10/audio_4deafc2ae2.mp3' },
+    { title: '🌸 Gentle Piano', url: 'https://cdn.pixabay.com/audio/2022/05/27/audio_1808fbf07a.mp3' },
+    { title: '✨ Dreamy Ambient', url: 'https://cdn.pixabay.com/audio/2022/08/02/audio_884fe25e21.mp3' },
+    { title: '🌙 Peaceful Night', url: 'https://cdn.pixabay.com/audio/2022/03/23/audio_c48f5806bb.mp3' }
+  ];
+
+  function toggleMusic() {
+    const music = document.getElementById('bgMusic');
+    const btn = document.getElementById('musicToggle');
+    const miniBtn = document.getElementById('miniPlayer');
+    
+    if (music.paused) {
+      music.play().then(() => {
+        btn.classList.add('playing');
+        btn.textContent = '⏸️';
+        miniBtn.style.animation = 'pulse 1.5s infinite';
+      }).catch(err => {
+        console.log('Music play failed:', err);
+        showMiniPopup('Click again to play music 🎵');
+      });
+    } else {
+      music.pause();
+      btn.classList.remove('playing');
+      btn.textContent = '▶️';
+      miniBtn.style.animation = 'none';
+    }
+  }
+
+  function changeVolume() {
+    const music = document.getElementById('bgMusic');
+    const slider = document.getElementById('volumeSlider');
+    music.volume = slider.value / 100;
+  }
+
+  function togglePlayerSize() {
+    const miniPlayer = document.getElementById('miniPlayer');
+    const fullPlayer = document.getElementById('fullPlayer');
+    
+    if (fullPlayer.style.display === 'none' || fullPlayer.style.display === '') {
+      // Expand player
+      miniPlayer.style.display = 'none';
+      fullPlayer.style.display = 'block';
+    } else {
+      // Minimize player
+      fullPlayer.style.display = 'none';
+      miniPlayer.style.display = 'flex';
+      
+      // Update mini button icon based on playing state
+      const music = document.getElementById('bgMusic');
+      if (!music.paused) {
+        miniPlayer.textContent = '🎵';
+        miniPlayer.style.animation = 'pulse 1.5s infinite';
+      } else {
+        miniPlayer.textContent = '🎵';
+        miniPlayer.style.animation = 'none';
+      }
+    }
+  }
+
+  function prevTrack() {
+    currentTrack = (currentTrack - 1 + musicTracks.length) % musicTracks.length;
+    loadTrack();
+  }
+
+  function nextTrack() {
+    currentTrack = (currentTrack + 1) % musicTracks.length;
+    loadTrack();
+  }
+
+  function loadTrack() {
+    const music = document.getElementById('bgMusic');
+    const source = document.getElementById('audioSource');
+    const title = document.getElementById('musicTitle');
+    const wasPlaying = !music.paused;
+    
+    source.src = musicTracks[currentTrack].url;
+    title.textContent = musicTracks[currentTrack].title;
+    music.load();
+    
+    if (wasPlaying) {
+      music.play().catch(err => console.log('Auto-play prevented'));
+    }
+    
+    showMiniPopup(musicTracks[currentTrack].title);
+  }
+
+  // ========================================
+  // PAGE NAVIGATION
+  // ========================================
+  function showPlaylistPage() {
+    document.getElementById('playlistPage').classList.add('active');
+    createFloatingHeart(window.innerWidth / 2, window.innerHeight / 3);
+  }
+
+  function showStrangerPage() {
+    document.getElementById('strangerPage').classList.add('active');
+    createFloatingHeart(window.innerWidth / 2, window.innerHeight / 3);
+  }
+
+  function closePage(pageId) {
+    document.getElementById(pageId).classList.remove('active');
+  }
+
+  // ========================================
+  // ENTER SANCTUARY
+  // ========================================
+  function enterSanctuary() {
+    const overlay = document.getElementById('invitation-overlay');
+    overlay.style.animation = 'fadeOut 0.5s ease-out forwards';
+    
+    setTimeout(() => {
+      overlay.style.display = 'none';
+      document.getElementById('mainContainer').style.display = 'block';
+      
+      // Set initial volume
+      const music = document.getElementById('bgMusic');
+      music.volume = 0.5;
+      
+      // Load first track
+      loadTrack();
+      
+      const musicBtn = document.getElementById('musicToggle');
+      music.play().then(() => {
+        musicBtn.classList.add('playing');
+        musicBtn.textContent = '⏸️';
+      }).catch(() => {
+        // Jika autoplay gagal, musik akan diputar saat user klik tombol
+        showMiniPopup('Click 🎵 button to play music');
+      });
+      
+      createFloatingHearts();
+    }, 500);
+    
+    gameState.visitCount++;
+    saveStats();
+  }
+
+  // ========================================
+  // CLOCK FUNCTIONS
+  // ========================================
+  function updateClock() {
+    const now = new Date();
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+    const seconds = now.getSeconds();
+    
+    const hourDeg = (hours % 12) * 30 + minutes * 0.5;
+    const minDeg = minutes * 6;
+    const secDeg = seconds * 6;
+    
+    document.getElementById('hourHand').style.transform = `rotate(${hourDeg}deg)`;
+    document.getElementById('minHand').style.transform = `rotate(${minDeg}deg)`;
+    document.getElementById('secHand').style.transform = `rotate(${secDeg}deg)`;
+    
+    const timeString = now.toLocaleTimeString('id-ID');
+    document.getElementById('digitalClock').textContent = timeString;
+  }
+  
+  setInterval(updateClock, 1000);
+  updateClock();
+
+  // ========================================
+  // FLOATING HEARTS EFFECT
+  // ========================================
+  function createFloatingHeart(x, y) {
+    const heart = document.createElement('div');
+    heart.className = 'floating-heart';
+    heart.textContent = ['💕', '💖', '💗', '🌸', '✨', '🦢'][Math.floor(Math.random() * 6)];
+    heart.style.left = (x || Math.random() * window.innerWidth) + 'px';
+    heart.style.top = (y || window.innerHeight) + 'px';
+    document.body.appendChild(heart);
+    
+    setTimeout(() => heart.remove(), 4000);
+  }
+
+  function createFloatingHearts() {
+    for (let i = 0; i < 10; i++) {
+      setTimeout(() => {
+        createFloatingHeart(Math.random() * window.innerWidth, window.innerHeight);
+      }, i * 200);
+    }
+  }
+
+  // ========================================
+  // MINI POPUP
+  // ========================================
+  function showMiniPopup(message) {
+    const popup = document.createElement('div');
+    popup.className = 'mini-popup';
+    popup.textContent = message;
+    document.body.appendChild(popup);
+    
+    setTimeout(() => {
+      popup.style.animation = 'fadeOut 0.3s ease-out forwards';
+      setTimeout(() => popup.remove(), 300);
+    }, 2000);
+  }
+
+  // ========================================
+  // DAILY AFFIRMATION
+  // ========================================
+  function generateAffirmation() {
+    const affirmations = [
+      "You are worthy of all the good things coming your way",
+      "Your presence is a gift to the world",
+      "You are enough, exactly as you are",
+      "Today, you choose to be gentle with yourself",
+      "You are becoming the best version of yourself",
+      "Your kindness makes a difference",
+      "You deserve all the love you give others",
+      "You are strong, capable, and resilient",
+      "Your dreams are valid and achievable",
+      "You radiate beauty from the inside out",
+      "You are worthy of rest and self-care",
+      "Your voice matters and deserves to be heard",
+      "You are creating a beautiful life",
+      "You deserve happiness and peace"
+    ];
+    
+    const affirmation = affirmations[Math.floor(Math.random() * affirmations.length)];
+    document.getElementById('affirmationText').textContent = affirmation;
+    
+    const card = document.getElementById('affirmationCard');
+    card.style.animation = 'none';
+    setTimeout(() => card.style.animation = 'fadeIn 0.5s ease-out', 10);
+    
+    createFloatingHeart(window.innerWidth / 2, window.innerHeight / 2);
+    gameState.totalActions++;
+    saveStats();
+  }
+
+  // ========================================
+  // BREATHING EXERCISE
+  // ========================================
+  let breathingPhase = 0;
+  let breathingInterval = null;
+
+  function startBreathing() {
+    if (gameState.breathingActive) {
+      stopBreathing();
+      return;
+    }
+    
+    gameState.breathingActive = true;
+    document.getElementById('breathingBtn').textContent = 'Stop Exercise 🌸';
+    breathingPhase = 0;
+    
+    runBreathingCycle();
+  }
+
+  function runBreathingCycle() {
+    const circle = document.getElementById('breathingCircle');
+    const instruction = document.getElementById('breathingInstruction');
+    
+    const phases = [
+      { text: 'Breathe In', instruction: 'Inhale slowly through your nose...', class: 'inhale', duration: 4000 },
+      { text: 'Hold', instruction: 'Hold your breath gently...', class: 'hold', duration: 7000 },
+      { text: 'Breathe Out', instruction: 'Exhale slowly through your mouth...', class: 'exhale', duration: 8000 }
+    ];
+    
+    const phase = phases[breathingPhase % 3];
+    
+    circle.textContent = phase.text;
+    instruction.textContent = phase.instruction;
+    circle.className = 'breathing-circle ' + phase.class;
+    
+    breathingInterval = setTimeout(() => {
+      breathingPhase++;
+      if (gameState.breathingActive) {
+        runBreathingCycle();
+      }
+    }, phase.duration);
+  }
+
+  function stopBreathing() {
+    gameState.breathingActive = false;
+    clearTimeout(breathingInterval);
+    document.getElementById('breathingCircle').textContent = 'Ready';
+    document.getElementById('breathingCircle').className = 'breathing-circle';
+    document.getElementById('breathingInstruction').textContent = 'Click start to begin your breathing exercise';
+    document.getElementById('breathingBtn').textContent = 'Start Exercise 🌸';
+    showMiniPopup('Great job! 🌸');
+    gameState.totalActions++;
+    saveStats();
+  }
+
+  // ========================================
+  // WATER TRACKER
+  // ========================================
+  function initWaterTracker() {
+    const container = document.getElementById('waterGlasses');
+    container.innerHTML = '';
+    
+    const today = getTodayKey();
+    const filled = gameState.habits[today]?.waterGlasses || 0;
+    
+    for (let i = 0; i < 8; i++) {
+      const glass = document.createElement('div');
+      glass.className = 'water-glass' + (i < filled ? ' filled' : '');
+      glass.textContent = i < filled ? '💧' : '';
+      glass.onclick = () => toggleWaterGlass(i);
+      container.appendChild(glass);
+    }
+    
+    updateWaterProgress(filled);
+  }
+
+  function toggleWaterGlass(index) {
+    const today = getTodayKey();
+    if (!gameState.habits[today]) {
+      gameState.habits[today] = {};
+    }
+    
+    const current = gameState.habits[today].waterGlasses || 0;
+    gameState.habits[today].waterGlasses = index + 1;
+    
+    initWaterTracker();
+    createFloatingHeart(event.clientX, event.clientY);
+    
+    if (gameState.habits[today].waterGlasses === 8) {
+      showMiniPopup('Hydration goal complete! 💧✨');
+    }
+    
+    gameState.totalActions++;
+    saveStats();
+  }
+
+  function updateWaterProgress(filled) {
+    document.getElementById('waterProgress').textContent = `${filled}/8 glasses`;
+  }
+
+  function resetWater() {
+    const today = getTodayKey();
+    if (gameState.habits[today]) {
+      gameState.habits[today].waterGlasses = 0;
+    }
+    initWaterTracker();
+    saveStats();
+    showMiniPopup('Water tracker reset! 💧');
+  }
+
+  // ========================================
+  // POMODORO TIMER
+  // ========================================
+  function startPomodoro() {
+    if (gameState.pomodoroRunning) return;
+    
+    gameState.pomodoroRunning = true;
+    gameState.pomodoroInterval = setInterval(() => {
+      if (gameState.pomodoroTime > 0) {
+        gameState.pomodoroTime--;
+        updatePomodoroDisplay();
+      } else {
+        pausePomodoro();
+        showMiniPopup('Time\'s up! Take a break 🌸');
+        createFloatingHearts();
+      }
+    }, 1000);
+  }
+
+  function pausePomodoro() {
+    gameState.pomodoroRunning = false;
+    if (gameState.pomodoroInterval) {
+      clearInterval(gameState.pomodoroInterval);
+      gameState.pomodoroInterval = null;
+    }
+  }
+
+  function resetPomodoro() {
+    pausePomodoro();
+    gameState.pomodoroTime = 1500;
+    updatePomodoroDisplay();
+  }
+
+  function updatePomodoroDisplay() {
+    const minutes = Math.floor(gameState.pomodoroTime / 60);
+    const seconds = gameState.pomodoroTime % 60;
+    document.getElementById('pomodoroDisplay').textContent = 
+      `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+  }
+
+  // ========================================
+  // MOOD TRACKER
+  // ========================================
+  function logMood(emoji, label) {
+    const mood = {
+      emoji: emoji,
+      label: label,
+      time: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }),
+      date: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'short' })
+    };
+    
+    gameState.moods.unshift(mood);
+    
+    if (gameState.moods.length > 10) {
+      gameState.moods = gameState.moods.slice(0, 10);
+    }
+    
+    updateMoodHistory();
+    saveStats();
+    createFloatingHeart(event.clientX, event.clientY);
+    showMiniPopup(`Mood logged: ${label} ${emoji}`);
+    gameState.totalActions++;
+  }
+
+  function updateMoodHistory() {
+    const history = document.getElementById('moodHistory');
+    history.innerHTML = '';
+    
+    if (gameState.moods.length === 0) {
+      history.innerHTML = '<div style="text-align:center; color:#999; font-size:12px; padding:10px;">No moods logged yet</div>';
+      return;
+    }
+    
+    gameState.moods.forEach(mood => {
+      const entry = document.createElement('div');
+      entry.className = 'mood-entry';
+      entry.innerHTML = `
+        <span style="font-size: 18px;">${mood.emoji}</span>
+        <span>${mood.label} • ${mood.time}</span>
+      `;
+      history.appendChild(entry);
+    });
+  }
+
+  // ========================================
+  // MEMORY MATCHING GAME
+  // ========================================
+  let memoryCards = [];
+  let memoryFlipped = [];
+  let memoryMatched = 0;
+  let memoryMoves = 0;
+
+  function initMemoryGame() {
+    const emojis = ['🦢', '🎀', '🌸', '💕', '✨', '🦋', '🌙', '💖'];
+    memoryCards = [...emojis, ...emojis].sort(() => Math.random() - 0.5);
+    memoryFlipped = [];
+    memoryMatched = 0;
+    memoryMoves = 0;
+    
+    const grid = document.getElementById('memoryGrid');
+    if (!grid) return;
+    
+    grid.innerHTML = '';
+    
+    memoryCards.forEach((emoji, index) => {
+      const card = document.createElement('div');
+      card.className = 'memory-card';
+      card.dataset.index = index;
+      card.dataset.emoji = emoji;
+      card.textContent = '🎴';
+      card.onclick = () => flipMemoryCard(index);
+      grid.appendChild(card);
+    });
+    
+    if (document.getElementById('memoryMoves')) {
+      document.getElementById('memoryMoves').textContent = '0';
+      document.getElementById('memoryMatches').textContent = '0';
+    }
+  }
+
+  function flipMemoryCard(index) {
+    const card = document.querySelector(`.memory-card[data-index="${index}"]`);
+    
+    if (!card || memoryFlipped.length >= 2 || card.classList.contains('flipped') || card.classList.contains('matched')) {
+      return;
+    }
+    
+    card.classList.add('flipped');
+    card.textContent = card.dataset.emoji;
+    memoryFlipped.push(index);
+    
+    if (memoryFlipped.length === 2) {
+      memoryMoves++;
+      if (document.getElementById('memoryMoves')) {
+        document.getElementById('memoryMoves').textContent = memoryMoves;
+      }
+      
+      const card1 = document.querySelector(`.memory-card[data-index="${memoryFlipped[0]}"]`);
+      const card2 = document.querySelector(`.memory-card[data-index="${memoryFlipped[1]}"]`);
+      
+      if (card1.dataset.emoji === card2.dataset.emoji) {
+        setTimeout(() => {
+          card1.classList.add('matched');
+          card2.classList.add('matched');
+          card1.classList.remove('flipped');
+          card2.classList.remove('flipped');
+          memoryMatched++;
+          if (document.getElementById('memoryMatches')) {
+            document.getElementById('memoryMatches').textContent = memoryMatched;
+          }
+          memoryFlipped = [];
+          
+          if (memoryMatched === 8) {
+            setTimeout(() => {
+              showMiniPopup(`You won! 🎉 Moves: ${memoryMoves}`);
+              createFloatingHearts();
+              gameState.totalActions++;
+              saveStats();
+            }, 500);
+          }
+        }, 600);
+      } else {
+        setTimeout(() => {
+          card1.classList.remove('flipped');
+          card2.classList.remove('flipped');
+          card1.textContent = '🎴';
+          card2.textContent = '🎴';
+          memoryFlipped = [];
+        }, 1000);
+      }
+    }
+  }
+
+  // ========================================
+  // WHACK-A-HEART GAME
+  // ========================================
+  let whackScore = 0;
+  let whackTime = 30;
+  let whackInterval = null;
+  let whackTimer = null;
+
+  function startWhackGame() {
+    if (whackInterval) return;
+    
+    whackScore = 0;
+    whackTime = 30;
+    document.getElementById('whackScore').textContent = '0';
+    document.getElementById('whackTime').textContent = '30';
+    document.getElementById('whackBtn').textContent = 'Playing... 💕';
+    document.getElementById('whackBtn').disabled = true;
+    
+    // Create holes
+    const grid = document.getElementById('whackGrid');
+    grid.innerHTML = '';
+    for (let i = 0; i < 9; i++) {
+      const hole = document.createElement('div');
+      hole.style.cssText = 'width: 60px; height: 60px; background: #8b5a6d; border-radius: 50%; position: relative; cursor: pointer; box-shadow: inset 0 4px 8px rgba(0,0,0,0.3); margin: 0 auto;';
+      hole.innerHTML = '<div class="whack-heart" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0); font-size: 28px; transition: all 0.2s;">💕</div>';
+      hole.onclick = () => hitHeart(hole);
+      grid.appendChild(hole);
+    }
+    
+    // Start spawning hearts
+    whackInterval = setInterval(() => {
+      const holes = grid.children;
+      const randomHole = holes[Math.floor(Math.random() * holes.length)];
+      const heart = randomHole.querySelector('.whack-heart');
+      
+      heart.style.transform = 'translate(-50%, -50%) scale(1)';
+      setTimeout(() => {
+        heart.style.transform = 'translate(-50%, -50%) scale(0)';
+      }, 800);
+    }, 600);
+    
+    // Timer
+    whackTimer = setInterval(() => {
+      whackTime--;
+      document.getElementById('whackTime').textContent = whackTime;
+      
+      if (whackTime <= 0) {
+        endWhackGame();
+      }
+    }, 1000);
+  }
+
+  function hitHeart(hole) {
+    const heart = hole.querySelector('.whack-heart');
+    if (heart.style.transform.includes('scale(1)')) {
+      whackScore += 10;
+      document.getElementById('whackScore').textContent = whackScore;
+      heart.style.transform = 'translate(-50%, -50%) scale(0)';
+      createFloatingHeart(event.clientX, event.clientY);
+    }
+  }
+
+  function endWhackGame() {
+    clearInterval(whackInterval);
+    clearInterval(whackTimer);
+    whackInterval = null;
+    whackTimer = null;
+    
+    document.getElementById('whackBtn').textContent = 'Start Game 💕';
+    document.getElementById('whackBtn').disabled = false;
+    
+    showMiniPopup(`Game Over! Score: ${whackScore} 🎉`);
+    createFloatingHearts();
+    gameState.totalActions++;
+    saveStats();
+  }
+
+  // ========================================
+  // SLIDING PUZZLE GAME
+  // ========================================
+  let puzzleTiles = [];
+  let puzzleMoves = 0;
+  let emptyIndex = 8;
+
+  function initPuzzleGame() {
+    puzzleTiles = [1, 2, 3, 4, 5, 6, 7, 8, 0];
+    puzzleMoves = 0;
+    
+    // Shuffle
+    for (let i = 0; i < 100; i++) {
+      const validMoves = getValidMoves();
+      const randomMove = validMoves[Math.floor(Math.random() * validMoves.length)];
+      movePuzzleTile(randomMove, false);
+    }
+    
+    puzzleMoves = 0;
+    renderPuzzle();
+  }
+
+  function getValidMoves() {
+    const moves = [];
+    const row = Math.floor(emptyIndex / 3);
+    const col = emptyIndex % 3;
+    
+    if (row > 0) moves.push(emptyIndex - 3);
+    if (row < 2) moves.push(emptyIndex + 3);
+    if (col > 0) moves.push(emptyIndex - 1);
+    if (col < 2) moves.push(emptyIndex + 1);
+    
+    return moves;
+  }
+
+  function movePuzzleTile(index, countMove = true) {
+    const validMoves = getValidMoves();
+    if (!validMoves.includes(index)) return;
+    
+    puzzleTiles[emptyIndex] = puzzleTiles[index];
+    puzzleTiles[index] = 0;
+    emptyIndex = index;
+    
+    if (countMove) {
+      puzzleMoves++;
+      document.getElementById('puzzleMoves').textContent = puzzleMoves;
+    }
+    
+    renderPuzzle();
+    
+    if (checkPuzzleWin()) {
+      setTimeout(() => {
+        showMiniPopup(`Puzzle solved! 🎉 Moves: ${puzzleMoves}`);
+        createFloatingHearts();
+        gameState.totalActions++;
+        saveStats();
+      }, 300);
+    }
+  }
+
+  function checkPuzzleWin() {
+    for (let i = 0; i < 8; i++) {
+      if (puzzleTiles[i] !== i + 1) return false;
+    }
+    return puzzleTiles[8] === 0;
+  }
+
+  function renderPuzzle() {
+    const grid = document.getElementById('puzzleGrid');
+    grid.innerHTML = '';
+    
+    puzzleTiles.forEach((num, index) => {
+      const tile = document.createElement('div');
+      tile.style.cssText = 'aspect-ratio: 1; background: white; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: bold; color: var(--coquette-pink); cursor: pointer; transition: all 0.2s;';
+      
+      if (num === 0) {
+        tile.style.background = 'transparent';
+        tile.style.cursor = 'default';
+      } else {
+        tile.textContent = num;
+        tile.onclick = () => movePuzzleTile(index);
+        tile.onmouseover = () => {
+          if (num !== 0) tile.style.background = '#ffe4e9';
+        };
+        tile.onmouseout = () => {
+          if (num !== 0) tile.style.background = 'white';
+        };
+      }
+      
+      grid.appendChild(tile);
+    });
+  }
+
+  // ========================================
+  // COLOR HARMONY GAME
+  // ========================================
+  let colorTarget = '';
+  let colorScore = 0;
+
+  function initColorGame() {
+    const colors = ['#FFB6C1', '#FF69B4', '#DB7093', '#C71585', '#FF1493', '#8B7095', '#9370DB', '#87CEEB', '#FF6B9D'];
+    colorTarget = colors[Math.floor(Math.random() * colors.length)];
+    
+    document.getElementById('colorDisplay').style.background = colorTarget;
+    
+    const options = [colorTarget];
+    while (options.length < 6) {
+      const randomColor = colors[Math.floor(Math.random() * colors.length)];
+      if (!options.includes(randomColor)) {
+        options.push(randomColor);
+      }
+    }
+    
+    options.sort(() => Math.random() - 0.5);
+    
+    const optionsDiv = document.getElementById('colorOptions');
+    optionsDiv.innerHTML = '';
+    
+    options.forEach(color => {
+      const option = document.createElement('div');
+      option.style.cssText = `aspect-ratio: 1; border-radius: 12px; cursor: pointer; border: 3px solid transparent; transition: all 0.3s; background: ${color};`;
+      option.onclick = () => checkColor(color);
+      option.onmouseover = () => {
+        option.style.transform = 'scale(1.1)';
+        option.style.borderColor = 'white';
+      };
+      option.onmouseout = () => {
+        option.style.transform = 'scale(1)';
+        option.style.borderColor = 'transparent';
+      };
+      optionsDiv.appendChild(option);
+    });
+  }
+
+  function checkColor(selectedColor) {
+    if (selectedColor === colorTarget) {
+      colorScore += 10;
+      document.getElementById('colorScore').textContent = colorScore;
+      showMiniPopup('Perfect match! +10 ✨');
+      createFloatingHeart(window.innerWidth / 2, window.innerHeight / 2);
+      initColorGame();
+      gameState.totalActions++;
+      saveStats();
+    } else {
+      showMiniPopup('Try again! 💕');
+    }
+  }
+
+  // ========================================
+  // SELF-CARE CHECKLIST
+  // ========================================
+  function toggleSelfCare(index) {
+    const todayKey = getTodayKey();
+    
+    if (!gameState.selfCare) {
+      gameState.selfCare = {};
+    }
+    
+    if (!gameState.selfCare[todayKey]) {
+      gameState.selfCare[todayKey] = [];
+    }
+    
+    const careIndex = gameState.selfCare[todayKey].indexOf(index);
+    
+    if (careIndex > -1) {
+      gameState.selfCare[todayKey].splice(careIndex, 1);
+    } else {
+      gameState.selfCare[todayKey].push(index);
+    }
+    
+    updateSelfCareDisplay();
+    saveStats();
+    
+    if (event && event.clientX && event.clientY) {
+      createFloatingHeart(event.clientX, event.clientY);
+    }
+    
+    gameState.totalActions++;
+  }
+
+  function updateSelfCareDisplay() {
+    const todayKey = getTodayKey();
+    
+    if (!gameState.selfCare) {
+      gameState.selfCare = {};
+    }
+    
+    const completed = gameState.selfCare[todayKey] || [];
+    
+    const checks = document.querySelectorAll('.self-care-check');
+    checks.forEach((check, index) => {
+      if (completed.includes(index)) {
+        check.classList.add('completed');
+        check.textContent = '✓';
+      } else {
+        check.classList.remove('completed');
+        check.textContent = '';
+      }
+    });
+    
+    const progressEl = document.getElementById('selfCareProgress');
+    if (progressEl) {
+      progressEl.textContent = `${completed.length}/5 self-care activities 💖`;
+    }
+  }
+
+  // ========================================
+  // DAILY JOURNAL
+  // ========================================
+  function saveJournalEntry() {
+    const input = document.getElementById('journalInput');
+    const text = input.value.trim();
+    
+    if (text === '') {
+      showMiniPopup('Please write something! 💕');
+      return;
+    }
+    
+    const entry = {
+      text: text,
+      date: new Date().toLocaleDateString('id-ID', { 
+        day: 'numeric', 
+        month: 'short',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      }),
+      id: Date.now()
+    };
+    
+    gameState.journal.unshift(entry);
+    
+    if (gameState.journal.length > 30) {
+      gameState.journal = gameState.journal.slice(0, 30);
+    }
+    
+    input.value = '';
+    updateJournalList();
+    saveStats();
+    createFloatingHeart(Math.random() * window.innerWidth, window.innerHeight / 2);
+    showMiniPopup('Journal entry saved! 📔✨');
+    gameState.totalActions++;
+  }
+
+  function updateJournalList() {
+    const list = document.getElementById('journalList');
+    if (!list) return;
+    
+    list.innerHTML = '';
+    
+    if (gameState.journal.length === 0) {
+      list.innerHTML = '<div style="text-align:center; color:#999; font-size:12px; padding:20px;">Start your journal! 📔</div>';
+      return;
+    }
+    
+    gameState.journal.forEach(entry => {
+      const item = document.createElement('div');
+      item.className = 'message-item';
+      item.innerHTML = `
+        <div class="message-header">${entry.date}</div>
+        <div class="message-text">${entry.text}</div>
+      `;
+      list.appendChild(item);
+    });
+  }
+
+  // ========================================
+  // MESSAGE TREE
+  // ========================================
+
+
+
+
+
+
+
+  // ========================================
+  // COLOR PALETTE GENERATOR
+  // ========================================
+  function generatePalette() {
+    // Function removed - replaced with Self-Care Checklist
+  }
+
+  // ========================================
+  // SELF-LOVE QUIZ
+  // ========================================
+  const quizData = [
+    {
+      question: "What's the most important thing about self-care?",
+      options: ["It's selfish", "It's necessary for wellbeing", "It's a luxury", "It's optional"],
+      correct: 1
+    },
+    {
+      question: "How should you talk to yourself?",
+      options: ["With harsh criticism", "With kindness and compassion", "With indifference", "Only when needed"],
+      correct: 1
+    },
+    {
+      question: "What does setting boundaries mean?",
+      options: ["Being rude to others", "Protecting your energy and wellbeing", "Avoiding all relationships", "Being stubborn"],
+      correct: 1
+    },
+    {
+      question: "Which is a healthy way to handle mistakes?",
+      options: ["Never forgive yourself", "Learn and grow from them", "Ignore them completely", "Blame others"],
+      correct: 1
+    },
+    {
+      question: "What's most important for mental health?",
+      options: ["Ignoring your feelings", "Being perfect always", "Acknowledging and processing emotions", "Comparing yourself to others"],
+      correct: 2
+    }
+  ];
+
+  let currentQuizIndex = 0;
+  let quizScore = 0;
+
+  function loadQuiz() {
+    if (currentQuizIndex >= quizData.length) {
+      document.getElementById('quizQuestion').textContent = `Quiz Complete! 🎉 Score: ${quizScore}/${quizData.length}`;
+      document.getElementById('quizOptions').innerHTML = '<button class="btn-pink" onclick="resetQuiz()">Restart Quiz</button>';
+      return;
+    }
+    
+    const quiz = quizData[currentQuizIndex];
+    document.getElementById('quizQuestion').textContent = quiz.question;
+    
+    const optionsHtml = quiz.options.map((option, index) => 
+      `<div class="quiz-option" onclick="selectQuizOption(${index})">${option}</div>`
+    ).join('');
+    
+    document.getElementById('quizOptions').innerHTML = optionsHtml;
+    document.getElementById('quizScore').textContent = `Score: ${quizScore}/${quizData.length}`;
+  }
+
+  function selectQuizOption(selectedIndex) {
+    const quiz = quizData[currentQuizIndex];
+    const options = document.querySelectorAll('.quiz-option');
+    
+    if (selectedIndex === quiz.correct) {
+      options[selectedIndex].classList.add('correct');
+      quizScore++;
+      showMiniPopup('Correct! ✨');
+      createFloatingHeart(event.clientX, event.clientY);
+    } else {
+      options[selectedIndex].classList.add('wrong');
+      options[quiz.correct].classList.add('correct');
+      showMiniPopup('Not quite, but keep learning! 💕');
+    }
+    
+    gameState.totalActions++;
+    saveStats();
+    
+    setTimeout(() => {
+      currentQuizIndex++;
+      loadQuiz();
+    }, 1500);
+  }
+
+  function resetQuiz() {
+    currentQuizIndex = 0;
+    quizScore = 0;
+    loadQuiz();
+  }
+
+  // ========================================
+  // CONFESSION WALL
+  // ========================================
+  function addConfession() {
+    const input = document.getElementById('confessionInput');
+    const text = input.value.trim();
+    
+    if (text === '') {
+      showMiniPopup('Please write something! 💕');
+      return;
+    }
+    
+    const confession = {
+      text: text,
+      time: new Date().toLocaleString('id-ID', { 
+        day: 'numeric', 
+        month: 'short', 
+        hour: '2-digit', 
+        minute: '2-digit' 
+      })
+    };
+    
+    gameState.confessions.unshift(confession);
+    
+    if (gameState.confessions.length > 20) {
+      gameState.confessions = gameState.confessions.slice(0, 20);
+    }
+    
+    input.value = '';
+    updateConfessionWall();
+    saveStats();
+    createFloatingHeart(Math.random() * window.innerWidth, window.innerHeight / 2);
+    showMiniPopup('Confession posted! 💌');
+    gameState.totalActions++;
+  }
+
+  function updateConfessionWall() {
+    const wall = document.getElementById('confessionWall');
+    wall.innerHTML = '';
+    
+    if (gameState.confessions.length === 0) {
+      wall.innerHTML = '<div style="text-align:center; color:#999; font-size:12px; padding:20px;">No confessions yet. Be the first! 💕</div>';
+      return;
+    }
+    
+    gameState.confessions.forEach(confession => {
+      const card = document.createElement('div');
+      card.className = 'confession-card';
+      card.innerHTML = `
+        <div class="confession-header">Anonymous • ${confession.time}</div>
+        <div class="confession-text">${confession.text}</div>
+      `;
+      wall.appendChild(card);
+    });
+  }
+
+  // ========================================
+  // STATS & STORAGE
+  // ========================================
+  function saveStats() {
+    localStorage.setItem('alyaSanctuaryData', JSON.stringify(gameState));
+    document.getElementById('visitCount').textContent = gameState.visitCount;
+    document.getElementById('totalActions').textContent = gameState.totalActions;
+  }
+
+  function loadStats() {
+    const saved = localStorage.getItem('alyaSanctuaryData');
+    if (saved) {
+      const loadedState = JSON.parse(saved);
+      
+      // Merge dengan default state untuk ensure semua property ada
+      gameState = {
+        visitCount: loadedState.visitCount || 0,
+        totalActions: loadedState.totalActions || 0,
+        confessions: loadedState.confessions || [],
+        moods: loadedState.moods || [],
+        calendarEvents: loadedState.calendarEvents || {},
+        habits: loadedState.habits || {},
+        gratitudes: loadedState.gratitudes || [],
+        waterGlasses: loadedState.waterGlasses || 0,
+        pomodoroTime: loadedState.pomodoroTime || 1500,
+        pomodoroRunning: false,
+        pomodoroInterval: null,
+        breathingActive: false,
+        selfCare: loadedState.selfCare || {},
+        journal: loadedState.journal || [],
+      };
+      
+      document.getElementById('visitCount').textContent = gameState.visitCount;
+      document.getElementById('totalActions').textContent = gameState.totalActions;
+      
+      updateConfessionWall();
+      updateMoodHistory();
+      renderCalendar();
+      updateHabitDisplay();
+      updateGratitudeList();
+      updateSelfCareDisplay();
+      updateJournalList();
+    }
+    
+    const firstVisit = localStorage.getItem('firstVisit');
+    if (!firstVisit) {
+      localStorage.setItem('firstVisit', new Date().toISOString());
+      document.getElementById('daysActive').textContent = '1';
+    } else {
+      const days = Math.floor((new Date() - new Date(firstVisit)) / (1000 * 60 * 60 * 24)) + 1;
+      document.getElementById('daysActive').textContent = days;
+    }
+  }
+
+  // ========================================
+  // INTERACTIVE CALENDAR
+  // ========================================
+  let currentCalendarDate = new Date();
+
+  function renderCalendar() {
+    const year = currentCalendarDate.getFullYear();
+    const month = currentCalendarDate.getMonth();
+    
+    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+                        'July', 'August', 'September', 'October', 'November', 'December'];
+    
+    document.getElementById('calendarMonth').textContent = `${monthNames[month]} ${year}`;
+    
+    const firstDay = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const daysInPrevMonth = new Date(year, month, 0).getDate();
+    
+    const calendarDays = document.getElementById('calendarDays');
+    calendarDays.innerHTML = '';
+    
+    const today = new Date();
+    const isCurrentMonth = today.getMonth() === month && today.getFullYear() === year;
+    
+    for (let i = firstDay - 1; i >= 0; i--) {
+      const day = daysInPrevMonth - i;
+      const dayEl = document.createElement('div');
+      dayEl.className = 'calendar-day other-month';
+      dayEl.textContent = day;
+      calendarDays.appendChild(dayEl);
+    }
+    
+    for (let day = 1; day <= daysInMonth; day++) {
+      const dayEl = document.createElement('div');
+      dayEl.className = 'calendar-day';
+      dayEl.textContent = day;
+      
+      const dateKey = `${year}-${month}-${day}`;
+      
+      if (isCurrentMonth && day === today.getDate()) {
+        dayEl.classList.add('today');
+      }
+      
+      if (gameState.calendarEvents[dateKey]) {
+        dayEl.classList.add('has-event');
+        const dot = document.createElement('div');
+        dot.className = 'event-dot';
+        dayEl.appendChild(dot);
+      }
+      
+      dayEl.onclick = () => toggleCalendarEvent(dateKey, dayEl);
+      calendarDays.appendChild(dayEl);
+    }
+    
+    const remainingDays = 42 - (firstDay + daysInMonth);
+    for (let day = 1; day <= remainingDays; day++) {
+      const dayEl = document.createElement('div');
+      dayEl.className = 'calendar-day other-month';
+      dayEl.textContent = day;
+      calendarDays.appendChild(dayEl);
+    }
+  }
+
+  function changeMonth(direction) {
+    currentCalendarDate.setMonth(currentCalendarDate.getMonth() + direction);
+    renderCalendar();
+  }
+
+  function toggleCalendarEvent(dateKey, element) {
+    if (gameState.calendarEvents[dateKey]) {
+      delete gameState.calendarEvents[dateKey];
+      showMiniPopup('Day unmarked 📅');
+    } else {
+      gameState.calendarEvents[dateKey] = true;
+      showMiniPopup('Day marked special! ✨');
+      createFloatingHeart(event.clientX, event.clientY);
+    }
+    saveStats();
+    renderCalendar();
+    gameState.totalActions++;
+  }
+
+  // ========================================
+  // DAILY HABIT TRACKER
+  // ========================================
+  function getTodayKey() {
+    const today = new Date();
+    return `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`;
+  }
+
+  function toggleHabit(index) {
+    const todayKey = getTodayKey();
+    
+    if (!gameState.habits[todayKey]) {
+      gameState.habits[todayKey] = {};
+    }
+    
+    if (!gameState.habits[todayKey].completed) {
+      gameState.habits[todayKey].completed = [];
+    }
+    
+    const habitIndex = gameState.habits[todayKey].completed.indexOf(index);
+    
+    if (habitIndex > -1) {
+      gameState.habits[todayKey].completed.splice(habitIndex, 1);
+    } else {
+      gameState.habits[todayKey].completed.push(index);
+    }
+    
+    updateHabitDisplay();
+    saveStats();
+    createFloatingHeart(event.clientX, event.clientY);
+    gameState.totalActions++;
+  }
+
+  function updateHabitDisplay() {
+    const todayKey = getTodayKey();
+    const completedHabits = gameState.habits[todayKey]?.completed || [];
+    
+    const checks = document.querySelectorAll('.habit-check');
+    checks.forEach((check, index) => {
+      if (completedHabits.includes(index)) {
+        check.classList.add('completed');
+        check.textContent = '✓';
+      } else {
+        check.classList.remove('completed');
+        check.textContent = '';
+      }
+    });
+    
+    document.getElementById('habitProgress').textContent = 
+      `${completedHabits.length}/5 habits completed today 🌙`;
+  }
+
+  // ========================================
+  // QUOTE OF THE DAY
+  // ========================================
+  function generateQuote() {
+    const quotes = [
+      { text: "Believe in your infinite potential. Your only limitations are those you set upon yourself.", author: "Roy T. Bennett" },
+      { text: "She remembered who she was and the game changed.", author: "Lalah Delia" },
+      { text: "You are never too old to set another goal or to dream a new dream.", author: "C.S. Lewis" },
+      { text: "Be yourself; everyone else is already taken.", author: "Oscar Wilde" },
+      { text: "The most beautiful thing you can wear is confidence.", author: "Blake Lively" },
+      { text: "Nothing can dim the light that shines from within.", author: "Maya Angelou" },
+      { text: "You are enough just as you are.", author: "Meghan Markle" },
+      { text: "Grace is finding a waterfall when you were only looking for a stream.", author: "Vanessa Hunt" },
+      { text: "Keep your face always toward the sunshine—and shadows will fall behind you.", author: "Walt Whitman" },
+      { text: "Life is tough, my darling, but so are you.", author: "Stephanie Bennett-Henry" },
+      { text: "To love oneself is the beginning of a lifelong romance.", author: "Oscar Wilde" },
+      { text: "You yourself, as much as anybody in the entire universe, deserve your love and affection.", author: "Buddha" }
+    ];
+    
+    const quote = quotes[Math.floor(Math.random() * quotes.length)];
+    document.getElementById('quoteText').textContent = quote.text;
+    document.getElementById('quoteAuthor').textContent = `— ${quote.author}`;
+    
+    createFloatingHeart(window.innerWidth / 2, window.innerHeight / 2);
+    gameState.totalActions++;
+    saveStats();
+  }
+
+  // ========================================
+  // GRATITUDE JOURNAL
+  // ========================================
+  function addGratitude() {
+    const input = document.getElementById('gratitudeInput');
+    const text = input.value.trim();
+    
+    if (text === '') {
+      showMiniPopup('Please write something! 💕');
+      return;
+    }
+    
+    const gratitude = {
+      text: text,
+      date: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'short' }),
+      id: Date.now()
+    };
+    
+    gameState.gratitudes.unshift(gratitude);
+    
+    if (gameState.gratitudes.length > 20) {
+      gameState.gratitudes = gameState.gratitudes.slice(0, 20);
+    }
+    
+    input.value = '';
+    updateGratitudeList();
+    saveStats();
+    createFloatingHeart(Math.random() * window.innerWidth, window.innerHeight / 2);
+    showMiniPopup('Gratitude added! 🙏✨');
+    gameState.totalActions++;
+  }
+
+  function deleteGratitude(id) {
+    gameState.gratitudes = gameState.gratitudes.filter(g => g.id !== id);
+    updateGratitudeList();
+    saveStats();
+  }
+
+  function updateGratitudeList() {
+    const list = document.getElementById('gratitudeList');
+    list.innerHTML = '';
+    
+    if (gameState.gratitudes.length === 0) {
+      list.innerHTML = '<div style="text-align:center; color:#999; font-size:12px; padding:20px;">Start your gratitude journal! 💕</div>';
+      return;
+    }
+    
+    gameState.gratitudes.forEach(g => {
+      const item = document.createElement('div');
+      item.className = 'gratitude-item';
+      item.innerHTML = `
+        <div>
+          <span style="color:#8b5a6d; font-size:10px;">${g.date}</span><br>
+          ${g.text}
+        </div>
+        <button class="gratitude-delete" onclick="deleteGratitude(${g.id})">×</button>
+      `;
+      list.appendChild(item);
+    });
+  }
+
+  // ========================================
+  // INITIALIZATION
+  // ========================================
+  window.addEventListener('load', () => {
+    loadStats();
+    loadQuiz();
+    renderCalendar();
+    updateHabitDisplay();
+    generateQuote();
+    initWaterTracker();
+    updateMoodHistory();
+    updateConfessionWall();
+    updateGratitudeList();
+    updateSelfCareDisplay();
+    updateJournalList();
+    
+    // Initialize new games
+    initMemoryGame();
+    initPuzzleGame();
+    initColorGame();
+  });
+
+  window.addEventListener('beforeunload', () => {
+    saveStats();
+  });
+
+  // ========================================
+  // RANDOM SPARKLE EFFECT
+  // ========================================
+  setInterval(() => {
+    if (Math.random() > 0.7) {
+      const sparkle = document.createElement('div');
+      sparkle.className = 'sparkle';
+      sparkle.style.left = Math.random() * window.innerWidth + 'px';
+      sparkle.style.top = Math.random() * window.innerHeight + 'px';
+      document.body.appendChild(sparkle);
+      setTimeout(() => sparkle.remove(), 1000);
+    }
+  }, 3000);
+</script>
+
+<!-- Taylor Swift Playlist Page -->
+<div id="playlistPage" class="page-overlay">
+  <div class="page-content">
+    <button class="page-close" onclick="closePage('playlistPage')">×</button>
+    <h2 class="page-title">🎵 Taylor Swift Full Playlist</h2>
+    <p style="text-align: center; color: var(--vintage-brown); margin-bottom: 20px;">
+      All Taylor Swift albums & eras ✨
+    </p>
+    <div class="playlist-grid">
+      <div class="playlist-item" onclick="showMiniPopup('Taylor Swift (2006) 🎸')">
+        <div style="background: linear-gradient(135deg, #87CEEB, #4682B4); aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: 50px;">🎸</div>
+        <div class="playlist-label">Taylor Swift (2006)</div>
+      </div>
+      <div class="playlist-item" onclick="showMiniPopup('Fearless (2008) 💛')">
+        <div style="background: linear-gradient(135deg, #FFD700, #FFA500); aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: 50px;">👑</div>
+        <div class="playlist-label">Fearless (2008)</div>
+      </div>
+      <div class="playlist-item" onclick="showMiniPopup('Speak Now (2010) 💜')">
+        <div style="background: linear-gradient(135deg, #9370DB, #663399); aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: 50px;">✨</div>
+        <div class="playlist-label">Speak Now (2010)</div>
+      </div>
+      <div class="playlist-item" onclick="showMiniPopup('Red (2012) ❤️')">
+        <div style="background: linear-gradient(135deg, #DC143C, #8B0000); aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: 50px;">❤️</div>
+        <div class="playlist-label">Red (2012)</div>
+      </div>
+      <div class="playlist-item" onclick="showMiniPopup('1989 (2014) 🌃')">
+        <div style="background: linear-gradient(135deg, #87CEEB, #FF69B4); aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: 50px;">🌃</div>
+        <div class="playlist-label">1989 (2014)</div>
+      </div>
+      <div class="playlist-item" onclick="showMiniPopup('Reputation (2017) 🐍')">
+        <div style="background: linear-gradient(135deg, #2F4F4F, #000000); aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: 50px;">🐍</div>
+        <div class="playlist-label">Reputation (2017)</div>
+      </div>
+      <div class="playlist-item" onclick="showMiniPopup('Lover (2019) 💗')">
+        <div style="background: linear-gradient(135deg, #FFB6C1, #FF69B4); aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: 50px;">💗</div>
+        <div class="playlist-label">Lover (2019)</div>
+      </div>
+      <div class="playlist-item" onclick="showMiniPopup('Folklore (2020) 🌲')">
+        <div style="background: linear-gradient(135deg, #A9A9A9, #696969); aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: 50px;">🌲</div>
+        <div class="playlist-label">Folklore (2020)</div>
+      </div>
+      <div class="playlist-item" onclick="showMiniPopup('Evermore (2020) 🍂')">
+        <div style="background: linear-gradient(135deg, #D2691E, #8B4513); aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: 50px;">🍂</div>
+        <div class="playlist-label">Evermore (2020)</div>
+      </div>
+      <div class="playlist-item" onclick="showMiniPopup('Midnights (2022) 🌙')">
+        <div style="background: linear-gradient(135deg, #191970, #4B0082); aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: 50px;">🌙</div>
+        <div class="playlist-label">Midnights (2022)</div>
+      </div>
+      <div class="playlist-item" onclick="showMiniPopup('The Tortured Poets Department (2024) 🖋️')">
+        <div style="background: linear-gradient(135deg, #F5F5DC, #D3D3D3); aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: 50px;">🖋️</div>
+        <div class="playlist-label">TTPD (2024)</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Stranger Things Series Page -->
+<div id="strangerPage" class="page-overlay">
+  <div class="page-content">
+    <button class="page-close" onclick="closePage('strangerPage')">×</button>
+    <h2 class="page-title">📺 Stranger Things Full Series</h2>
+    <p style="text-align: center; color: var(--vintage-brown); margin-bottom: 20px;">
+      All seasons & episodes 🔦
+    </p>
+    <div class="series-grid">
+      <div class="series-item" onclick="showMiniPopup('Season 1: The Vanishing of Will Byers 🔦')">
+        <div style="background: linear-gradient(135deg, #8B0000, #000000); aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; font-size: 40px;">🔦</div>
+        <div class="series-label">Season 1 (2016)<br>8 Episodes</div>
+      </div>
+      <div class="series-item" onclick="showMiniPopup('Season 2: The Mind Flayer 👾')">
+        <div style="background: linear-gradient(135deg, #4B0082, #000000); aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; font-size: 40px;">👾</div>
+        <div class="series-label">Season 2 (2017)<br>9 Episodes</div>
+      </div>
+      <div class="series-item" onclick="showMiniPopup('Season 3: Battle of Starcourt 🎢')">
+        <div style="background: linear-gradient(135deg, #FF6347, #FF1493); aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; font-size: 40px;">🎢</div>
+        <div class="series-label">Season 3 (2019)<br>8 Episodes</div>
+      </div>
+      <div class="series-item" onclick="showMiniPopup('Season 4: The Upside Down Returns 🌀')">
+        <div style="background: linear-gradient(135deg, #8B4513, #2F4F4F); aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; font-size: 40px;">🌀</div>
+        <div class="series-label">Season 4 (2022)<br>9 Episodes</div>
+      </div>
+      <div class="series-item" onclick="showMiniPopup('Season 5: Coming 2025 ⚡')">
+        <div style="background: linear-gradient(135deg, #FFD700, #FFA500); aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; font-size: 40px;">⚡</div>
+        <div class="series-label">Season 5 (2025)<br>TBA Episodes</div>
+      </div>
+      <div class="series-item" onclick="showMiniPopup('Eleven 💗')">
+        <div style="background: linear-gradient(135deg, #FFB6C1, #FF69B4); aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; font-size: 40px;">👧</div>
+        <div class="series-label">Eleven Character</div>
+      </div>
+      <div class="series-item" onclick="showMiniPopup('Mike Wheeler 🚲')">
+        <div style="background: linear-gradient(135deg, #4682B4, #1E90FF); aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; font-size: 40px;">🚲</div>
+        <div class="series-label">Mike Character</div>
+      </div>
+      <div class="series-item" onclick="showMiniPopup('Dustin Henderson 🧢')">
+        <div style="background: linear-gradient(135deg, #32CD32, #228B22); aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; font-size: 40px;">🧢</div>
+        <div class="series-label">Dustin Character</div>
+      </div>
+      <div class="series-item" onclick="showMiniPopup('The Demogorgon 👹')">
+        <div style="background: linear-gradient(135deg, #8B0000, #000000); aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; font-size: 40px;">👹</div>
+        <div class="series-label">Demogorgon</div>
+      </div>
+      <div class="series-item" onclick="showMiniPopup('The Upside Down 🌀')">
+        <div style="background: linear-gradient(135deg, #2F4F4F, #000000); aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; font-size: 40px;">🌀</div>
+        <div class="series-label">The Upside Down</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
