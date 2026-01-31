@@ -3047,5 +3047,50 @@
   </div>
 </div>
 
+ <script>
+  // 1. DAFTAR LAGU (Tambahkan link mp3 Anda di sini)
+  const playlist = [
+    { title: "Gentle Piano", url: "https://cdn.pixabay.com/audio/2022/03/10/audio_4deafc2ae2.mp3" },
+    { title: "Sweet Lullaby", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" },
+    { title: "Soft Memories", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" }
+  ];
+
+  let currentTrackIndex = 0;
+  const bgMusic = document.getElementById('bgMusic');
+  const audioSource = document.getElementById('audioSource');
+  const musicTitle = document.getElementById('musicTitle');
+
+  // 2. FUNGSI UNTUK MEMUAT LAGU
+  function loadTrack(index) {
+    currentTrackIndex = index;
+    audioSource.src = playlist[currentTrackIndex].url;
+    
+    // Update teks judul lagu jika elemen musicTitle ada
+    if(musicTitle) {
+      musicTitle.innerText = "🎵 " + playlist[currentTrackIndex].title;
+    }
+    
+    bgMusic.load(); // Penting: memuat ulang sumber audio baru
+    bgMusic.play().catch(error => console.log("Menunggu interaksi user untuk play"));
+  }
+
+  // 3. FUNGSI TOMBOL NEXT (dipanggil saat klik tombol ⏭️)
+  function nextTrack() {
+    currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
+    loadTrack(currentTrackIndex);
+  }
+
+  // 4. FUNGSI TOMBOL PREV (dipanggil saat klik tombol ⏮️)
+  function prevTrack() {
+    currentTrackIndex = (currentTrackIndex - 1 + playlist.length) % playlist.length;
+    loadTrack(currentTrackIndex);
+  }
+
+  // 5. OTOMATIS LANJUT KE LAGU BERIKUTNYA
+  bgMusic.onended = function() {
+    nextTrack();
+  };
+ </script>
+ 
 </body>
 </html>
